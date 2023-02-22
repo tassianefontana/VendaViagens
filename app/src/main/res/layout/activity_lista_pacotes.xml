@@ -3,14 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".view.ListaPacotesActivity">
+    android:layout_height="match_parent">
 
     <ImageView
         android:id="@+id/activity_lista_pacotes_background"
         android:layout_width="0dp"
         android:layout_height="120dp"
-        android:src="@color/custom_blue"
+        android:contentDescription="@string/banner_inicial_dos_pacotes"
+        android:src="@color/colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -26,11 +26,11 @@
         android:text="@string/especiais"
         android:textColor="@color/white"
         android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/activity_lista_pacotes_background"
+        app:layout_constraintEnd_toEndOf="@id/activity_lista_pacotes_background"
         app:layout_constraintHorizontal_bias="0.00"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="@id/activity_lista_pacotes_background"
+        app:layout_constraintTop_toTopOf="@id/activity_lista_pacotes_background"
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
@@ -51,12 +51,12 @@
         android:id="@+id/lista_pacotes_list_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:divider="@null"
+        android:dividerHeight="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/activity_lista_pacotes_background"
-        app:layout_constraintVertical_bias="0.0"
         tools:listitem="@layout/item_pacote" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

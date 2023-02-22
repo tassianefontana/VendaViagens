@@ -2,7 +2,6 @@ package com.tassicompany.viagens.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,14 +10,13 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.tassicompany.viagens.util.DiasUtil;
+import com.tassicompany.viagens.util.MoedaUtil;
 import com.tassicompany.viagens.R;
+import com.tassicompany.viagens.util.ResourcesUtil;
 import com.tassicompany.viagens.model.Pacote;
 
-import java.math.BigDecimal;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.util.List;
-import java.util.Locale;
 
 public class ListaPacotesAdapter extends BaseAdapter {
 
@@ -62,32 +60,19 @@ public class ListaPacotesAdapter extends BaseAdapter {
 
     private void mostraPreco(View viewCriada, Pacote pacote) {
         TextView preco = viewCriada.findViewById(R.id.item_pacote_preco);
-        BigDecimal precodoPacote = pacote.getPreco();
-        NumberFormat formatoBrasileiro = DecimalFormat.getCurrencyInstance(new Locale("pt", "br"));
-        String moedaBrasileira = formatoBrasileiro
-                .format(precodoPacote)
-                .replace("R$", "R$ ");
+        String moedaBrasileira = MoedaUtil.formataParaBrasileiro(pacote.getPreco());
         preco.setText(moedaBrasileira);
     }
 
     private void mostraQtdDias(View viewCriada, Pacote pacote) {
         TextView dias = viewCriada.findViewById(R.id.item_pacote_dias);
-        String diasEmTexto = "";
-        int qtdDias = pacote.getDias();
-
-        if (qtdDias > 1) {
-            diasEmTexto = qtdDias + " dias";
-        } else {
-            diasEmTexto = qtdDias + " dia";
-        }
+        String diasEmTexto = DiasUtil.formataDiasEmTxt(pacote.getDias());
         dias.setText(diasEmTexto);
     }
 
     private void mostraImagem(View viewCriada, Pacote pacote) {
         ImageView imagem = viewCriada.findViewById(R.id.item_pacote_imagem);
-        Resources resources = context.getResources();
-        int idDoDrawable = resources.getIdentifier(pacote.getImagem(), "drawable", context.getPackageName());
-        Drawable drawableImagemPacote = resources.getDrawable(idDoDrawable);
+        Drawable drawableImagemPacote = ResourcesUtil.devolveDrawable(context, pacote.getImagem());
         imagem.setImageDrawable(drawableImagemPacote);
     }
 
