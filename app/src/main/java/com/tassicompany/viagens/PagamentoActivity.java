@@ -2,11 +2,14 @@ package com.tassicompany.viagens;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 
 import com.tassicompany.viagens.model.Pacote;
 import com.tassicompany.viagens.util.MoedaUtil;
+import com.tassicompany.viagens.view.ResumoPacoteActivity;
+import com.tassicompany.viagens.view.ResumoPagamentoActivity;
 
 import java.math.BigDecimal;
 
@@ -22,6 +25,9 @@ public class PagamentoActivity extends AppCompatActivity {
 
         Pacote pacoteSaoPaulo = new Pacote("Sao Paulo", "sao_paulo_sp", 2, new BigDecimal("243.99"));
         mostraPreco(pacoteSaoPaulo);
+
+        Intent intent = new Intent(this, ResumoPagamentoActivity.class);
+        startActivity(intent);
 
     }
 
