@@ -1,5 +1,7 @@
 package com.tassicompany.viagens.view;
 
+import static com.tassicompany.viagens.view.PacoteActivity.CHAVE_PACOTE;
+
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
@@ -30,25 +32,41 @@ public class ResumoPacoteActivity extends AppCompatActivity {
         setTitle(TITULO_APPBAR);
         mContext = this.getApplicationContext();
 
-        Intent intent = getIntent();
-        if (intent.hasExtra("pacote")) {
-            Pacote pacote = (Pacote) intent.getSerializableExtra("pacote");
-            mostraLocal(pacote);
-            mostraImagem(pacote);
-            mostraDias(pacote);
-            mostraPreco(pacote);
-            mostraData(pacote);
+        carregaPacoteRecebido();
+    }
 
-            Button btnRealizaPgto = findViewById(R.id.activity_resumo_pacote_botao_pgto);
-            btnRealizaPgto.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(mContext, PagamentoActivity.class);
-                    intent.putExtra("pacote", pacote);
-                    startActivity(intent);
-                }
-            });
+    private void carregaPacoteRecebido() {
+        Intent intent = getIntent();
+        if (intent.hasExtra(CHAVE_PACOTE)) {
+            Pacote pacote = (Pacote) intent.getSerializableExtra(CHAVE_PACOTE);
+            inicializaCampos(pacote);
+
+            configuraBotao(pacote);
         }
+    }
+
+    private void configuraBotao(Pacote pacote) {
+        Button btnRealizaPgto = findViewById(R.id.activity_resumo_pacote_botao_pgto);
+        btnRealizaPgto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                vaiParaPgto(pacote);
+            }
+        });
+    }
+
+    private void vaiParaPgto(Pacote pacote) {
+        Intent intent = new Intent(mContext, PagamentoActivity.class);
+        intent.putExtra(CHAVE_PACOTE, pacote);
+        startActivity(intent);
+    }
+
+    private void inicializaCampos(Pacote pacote) {
+        mostraLocal(pacote);
+        mostraImagem(pacote);
+        mostraDias(pacote);
+        mostraPreco(pacote);
+        mostraData(pacote);
     }
 
     private void mostraData(Pacote pacote) {

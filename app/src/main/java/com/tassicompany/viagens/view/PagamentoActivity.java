@@ -1,5 +1,7 @@
 package com.tassicompany.viagens.view;
 
+import static com.tassicompany.viagens.view.PacoteActivity.CHAVE_PACOTE;
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -26,22 +28,33 @@ public class PagamentoActivity extends AppCompatActivity {
 
         mContext = this.getApplicationContext();
 
+        carregaPacoteRecebido();
+    }
+
+    private void carregaPacoteRecebido() {
         Intent intent = getIntent();
-        if (intent.hasExtra("pacote")) {
-            final Pacote pacote = (Pacote) intent.getSerializableExtra("pacote");
+        if (intent.hasExtra(CHAVE_PACOTE)) {
+            final Pacote pacote = (Pacote) intent.getSerializableExtra(CHAVE_PACOTE);
 
             mostraPreco(pacote);
-
-            Button btnFinalizaCompra = findViewById(R.id.activity_pagamento_botao_finaliza_compra);
-            btnFinalizaCompra.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(mContext, ResumoPagamentoActivity.class);
-                    intent.putExtra("pacote", pacote);
-                    startActivity(intent);
-                }
-            });
+            configuraBotao(pacote);
         }
+    }
+
+    private void configuraBotao(Pacote pacote) {
+        Button btnFinalizaCompra = findViewById(R.id.activity_pagamento_botao_finaliza_compra);
+        btnFinalizaCompra.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                vaiParaResumoCompra(pacote);
+            }
+        });
+    }
+
+    private void vaiParaResumoCompra(Pacote pacote) {
+        Intent intent = new Intent(mContext, ResumoCompraActivity.class);
+        intent.putExtra(CHAVE_PACOTE, pacote);
+        startActivity(intent);
     }
 
     private void mostraPreco(Pacote pacote) {

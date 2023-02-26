@@ -1,5 +1,7 @@
 package com.tassicompany.viagens.view;
 
+import static com.tassicompany.viagens.view.PacoteActivity.CHAVE_PACOTE;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageView;
@@ -13,7 +15,7 @@ import com.tassicompany.viagens.util.DataUtil;
 import com.tassicompany.viagens.util.MoedaUtil;
 import com.tassicompany.viagens.util.ResourcesUtil;
 
-public class ResumoPagamentoActivity extends AppCompatActivity {
+public class ResumoCompraActivity extends AppCompatActivity {
 
     public static final String TITULO_APPBAR = "Resumo da compra";
 
@@ -23,15 +25,23 @@ public class ResumoPagamentoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_resumo_pagamento);
         setTitle(TITULO_APPBAR);
 
-        Intent intent = getIntent();
-        if (intent.hasExtra("pacote")) {
-            final Pacote pacote = (Pacote) intent.getSerializableExtra("pacote");
+        carregaPacoteRecebido();
+    }
 
-            mostraLocal(pacote);
-            mostraImagem(pacote);
-            mostraData(pacote);
-            mostraPreco(pacote);
+    private void carregaPacoteRecebido() {
+        Intent intent = getIntent();
+        if (intent.hasExtra(CHAVE_PACOTE)) {
+            final Pacote pacote = (Pacote) intent.getSerializableExtra(CHAVE_PACOTE);
+
+            inicializaCampos(pacote);
         }
+    }
+
+    private void inicializaCampos(Pacote pacote) {
+        mostraLocal(pacote);
+        mostraImagem(pacote);
+        mostraData(pacote);
+        mostraPreco(pacote);
     }
 
     private void mostraPreco(Pacote pacote) {

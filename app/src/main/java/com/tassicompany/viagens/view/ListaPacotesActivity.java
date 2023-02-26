@@ -1,5 +1,7 @@
 package com.tassicompany.viagens.view;
 
+import static com.tassicompany.viagens.view.PacoteActivity.CHAVE_PACOTE;
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -28,21 +30,25 @@ public class ListaPacotesActivity extends AppCompatActivity {
         setTitle(TITULO_APPBAR);
         mContext = this.getApplicationContext();
         configuraLista();
-
     }
 
     private void configuraLista() {
         ListView listaPacotes = findViewById(R.id.lista_pacotes_list_view);
         final List<Pacote> pacotes = new PacoteDAO().lista();
         listaPacotes.setAdapter(new ListaPacotesAdapter(pacotes, this));
+        vaiParaResumoPacote(listaPacotes, pacotes);
+    }
+
+    private void vaiParaResumoPacote(ListView listaPacotes, List<Pacote> pacotes) {
         listaPacotes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int posicao, long id) {
                 Pacote pacoteClicado = pacotes.get(posicao);
                 Intent intent = new Intent(mContext, ResumoPacoteActivity.class);
-                intent.putExtra("pacote", pacoteClicado);
+                intent.putExtra(CHAVE_PACOTE, pacoteClicado);
                 startActivity(intent);
             }
         });
     }
+
 }
