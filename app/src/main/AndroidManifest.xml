@@ -12,6 +12,9 @@
         android:theme="@style/Theme.Viagens"
         tools:targetApi="31">
         <activity
+            android:name=".ResumoPagamentoActivity"
+            android:exported="false" />
+        <activity
             android:name=".PagamentoActivity"
             android:exported="false" />
         <activity
