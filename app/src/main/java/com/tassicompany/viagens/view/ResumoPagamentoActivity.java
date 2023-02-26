@@ -1,5 +1,6 @@
 package com.tassicompany.viagens.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -12,8 +13,6 @@ import com.tassicompany.viagens.util.DataUtil;
 import com.tassicompany.viagens.util.MoedaUtil;
 import com.tassicompany.viagens.util.ResourcesUtil;
 
-import java.math.BigDecimal;
-
 public class ResumoPagamentoActivity extends AppCompatActivity {
 
     public static final String TITULO_APPBAR = "Resumo da compra";
@@ -24,16 +23,15 @@ public class ResumoPagamentoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_resumo_pagamento);
         setTitle(TITULO_APPBAR);
 
-        Pacote pacoteSaoPaulo = new Pacote("Sao Paulo", "sao_paulo_sp", 2,
-                new BigDecimal("243.99"));
+        Intent intent = getIntent();
+        if (intent.hasExtra("pacote")) {
+            final Pacote pacote = (Pacote) intent.getSerializableExtra("pacote");
 
-        mostraLocal(pacoteSaoPaulo);
-
-        mostraImagem(pacoteSaoPaulo);
-
-        mostraData(pacoteSaoPaulo);
-
-        mostraPreco(pacoteSaoPaulo);
+            mostraLocal(pacote);
+            mostraImagem(pacote);
+            mostraData(pacote);
+            mostraPreco(pacote);
+        }
     }
 
     private void mostraPreco(Pacote pacote) {
